@@ -35,7 +35,7 @@ plotboxes <- function( fac, facname ) {
 	# Molecule Length
 	znames = unique(fac)
 	boxplot( log10(dat$Length) ~ fac, las=1, axes=F, ann=F, las=1, outline=F )
-	axis( 2, at=log10(c(150000,300000,500000,1000000,1500000,2000000)), labels=c("150 kb",paste(c(0.3,0.5,1.0,1.5,2.0),"Mb",sep="")), lwd=0, lwd.ticks=1, las=1 )
+	axis( 2, at=log10(c(100000,150000,300000,500000,1000000,1500000,2000000)), labels=c("100 kb","150 kb",paste(c(0.3,0.5,1.0,1.5,2.0),"Mb",sep="")), lwd=0, lwd.ticks=1, las=1 )
 	mtext( text="Molecule Length (Mb)", side=2, line=3 )
 	box()
 	# Label Density 
@@ -45,7 +45,7 @@ plotboxes <- function( fac, facname ) {
 	box()
 	# Average Intensity 
 	boxplot( log10(dat$AvgIntensity) ~ fac, ann=F, axes=F, las=1, outline=F )
-	axis( 2, lwd=0, lwd.ticks=1, las=1, at=2:5, labels=c(100,expression(10^3),expression(10^4),expression(10^5)) )
+	axis( 2, lwd=0, lwd.ticks=1, las=1, at=c(2,log10(500),3,log10(5000),4,log10(50000),5), labels=c(100,500,expression(10^3),"",expression(10^4),"",expression(10^5)) )
 	mtext( text="Average Intensity", side=2, line=3 )
 	axis( 1, lwd=0, lwd.ticks=1, las=1, at=1:length(znames), labels=wrap.labels(znames,16), cex.axis=0.8, padj=1, line=0 )
 	box()
@@ -63,10 +63,10 @@ plotlines <- function( fac, facname ) {
 	par(mfrow=c(2,2), oma=c(5,5,3,5), mar=rep(0,4)) 
 	# Molecule Length
 	z <- split(log10(dat$Length),f=fac)
-	plot( x=as.numeric(names(z)), y=sapply(z,mean), las=1, ann=F, axes=F, las=1, type="l", ylim=log10(c(100000,500000)), lwd=2)
+	plot( x=as.numeric(names(z)), y=sapply(z,mean), las=1, ann=F, axes=F, las=1, type="l", ylim=log10(c(100000,1000000)), lwd=2)
 	lines( as.numeric(names(z)), sapply(z,quantile,0.25), lty=1, col="grey" )
 	lines( as.numeric(names(z)), sapply(z,quantile,0.75), lty=1, col="grey" )
-	axis( 2, at=log10(c(150000,300000,500000)), labels=paste(c(0.15,0.3,0.5),"Mb",sep=""), lwd=0, lwd.ticks=1, las=1 )
+	axis( 2, at=log10(c(100000,150000,300000,500000,1000000)), labels=paste(c(0.10,0.15,0.30,0.5,1.0),"Mb",sep=""), lwd=0, lwd.ticks=1, las=1 )
 	mtext( text="Molecule Length (Mb)", side=2, line=3 )
 	box()
 	rm(z)
@@ -128,10 +128,10 @@ pdf(file=outfile, width=10, height=10)
 par(mfrow=c(2,2)) 
 # Molecule length density
 z <- density( log10(dat$Length) )
-plot(x=log10(c(150000,2000000)), y=c(0,ceiling(max(z$y))), main="Filtered Molecule Length", las=1, axes=F, pch=NA, sub=paste("N =",format(z$n,big.mark=",")," Bandwidth =",round(z$bw,6)), ylab="Density", xlab="" )
-abline( v=log10(c(150000,300000,500000,1000000,1500000,2000000)), col="grey" )
+plot(x=log10(c(100000,2000000)), y=c(0,ceiling(max(z$y))), main="Filtered Molecule Length", las=1, axes=F, pch=NA, sub=paste("N =",format(z$n,big.mark=",")," Bandwidth =",round(z$bw,6)), ylab="Density", xlab="" )
+abline( v=log10(c(100000,150000,300000,500000,1000000,1500000,2000000)), col="grey" )
 lines( z, lwd=2 )
-axis( 1, at=log10(c(150000,300000,500000,1000000,1500000,2000000)), labels=paste(c(0.15,0.3,0.5,1.0,1.5,2.0),"Mb"), lwd=0, lwd.ticks=1, cex.axis=0.8 )
+axis( 1, at=log10(c(100000,150000,300000,500000,1000000,1500000,2000000)), labels=paste(c(0.10,0.15,0.3,0.5,1.0,1.5,2.0),"Mb"), lwd=0, lwd.ticks=1, cex.axis=0.8 )
 axis(2,las=1,lwd.ticks=1,lwd=0)
 box()
 # Label density 
