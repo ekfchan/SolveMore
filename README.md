@@ -1,7 +1,7 @@
 # SolveMore
 Handy scripts for examining Bionano Solve data
 
-_Scripts have been validated for Bionano Solve v3.2 and BNX format v.1.2_
+_Scripts have been validated for Bionano Solve v3.2, BNX format v.1.2 and SMAP format v0.7_
 
 **plotters**
 
@@ -39,13 +39,26 @@ A R script to plot genome-wide CNV profile, taken as the `fractionalCopyNumber` 
 
 _This script is here for historical reasons, as I don't think the plot is very informative...!_
 
-**VAP**
+**manipulators**
 
-This dir contains scripts for post-analysis and manipulation of the Variant Annotation Pipeline output. 
+This dir contains scripts for post-analysis and manipulation of Pipeline outputs. 
 
-_The scripts are based on SMAP File Version 0.7_
+[**_tally_SVtypes.sh_**](manipulators/tally_SVtypes.sh)
 
-[**_filter_dualVAP_**](VAP/filter_dualVAP.R)
+A shell script to tally up the different SV types from a smap file, printing the two-column results to stdout. 
+
+```sh
+tally_SVtypes.sh exp_refineFinal1_merged_filter_inversions.smap
+insertions	11068
+deletions	9182
+duplications	80
+inversions	213
+intra-chr	23
+inter-chr	84
+TOTAL SV	20650
+```
+
+[**_filter_dualVAP_**](manipulators/filter_dualVAP.R)
 
 A R script to filter the "raw" variants_combine_filters_vs_control_inMoleRefine1.smap file from a Dual-Sample VAP analysis, returing a reduced smap. In brief, SVs of types "_nbase", "_common", and "_segdup" are excluded, as are SVs failing Assembly Chimeric Score or not found in self-molecules, and insertions/deletions smaller than 500 bp in size. 
 
