@@ -45,7 +45,7 @@ This dir contains scripts for post-analysis and manipulation of Pipeline outputs
 
 [**_tally_SVtypes.sh_**](manipulators/tally_SVtypes.sh)
 
-A shell script to tally up the different SV types from a smap file, printing the two-column results to stdout. 
+A shell script to tally up the different SV types from a smap file, printing the two-column results to stdout. It correctly accounts for the double entries for each inversions. It does not discriminate (exclude) `_nbase`, `_common`, or `_segdup` types (filtering scripts can be used for this). 
 
 ```sh
 tally_SVtypes.sh exp_refineFinal1_merged_filter_inversions.smap
@@ -60,7 +60,7 @@ TOTAL SV	20650
 
 [**_filter_dualVAP_**](manipulators/filter_dualVAP.R)
 
-A R script to filter the "raw" variants_combine_filters_vs_control_inMoleRefine1.smap file from a Dual-Sample VAP analysis, returing a reduced smap. In brief, SVs of types "_nbase", "_common", and "_segdup" are excluded, as are SVs failing Assembly Chimeric Score or not found in self-molecules, and insertions/deletions smaller than 500 bp in size. 
+A R script to filter the "raw" variants_combine_filters_vs_control_inMoleRefine1.smap file from a Dual-Sample VAP analysis, returing a reduced smap. In brief, SVs of types `_nbase`, `_common`, and `_segdup` are excluded, as are SVs failing Assembly Chimeric Score or not found in self-molecules, and insertions/deletions smaller than 500 bp in size. For inversions, only those where BOTH breakpoints pass inclusion criteria are returned. 
 
 ```sh
 Rscript filter_dualVAP.R variants_combine_filters_vs_control_inMoleRefine1.smap filteredVAP.smap
