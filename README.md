@@ -58,11 +58,13 @@ inter-chr	84
 TOTAL SV	20650
 ```
 
-[**_filter_dualVAP_**](manipulators/filter_dualVAP.R)
+[**_filterVAP_**](manipulators/filterVAP.R)
 
-A R script to filter the "raw" variants_combine_filters_vs_control_inMoleRefine1.smap file from a Dual-Sample VAP analysis, returing a reduced smap. In brief, SVs of types `_nbase`, `_common`, and `_segdup` are excluded, as are SVs failing Assembly Chimeric Score or not found in self-molecules, and insertions/deletions smaller than 500 bp in size. For inversions, only those where BOTH breakpoints pass inclusion criteria are returned. 
+A R script to filter the "raw" variants_combine_filters_vs_control_inMoleRefine1.smap file from a VAP analysis, returing a reduced smap. In brief, SVs of types `_nbase`, `_common`, and `_segdup` are excluded, as are SVs failing Assembly Chimeric Score or not found in self-molecules, and insertions/deletions smaller than 500 bp in size. For inversions, only those where BOTH breakpoints pass inclusion criteria are returned. 
+
+Script is compatible with SMAP File Version 0.7 and has been tested for Single-Sample and Dual-Sample VAP outputs (it will probably work for Trio-VAP analysis smap outputs, but it hasn't been tested yet).
 
 ```sh
-Rscript filter_dualVAP.R variants_combine_filters_vs_control_inMoleRefine1.smap filteredVAP.smap
+Rscript filterVAP.R variants_combine_filters_vs_control_inMoleRefine1.smap filteredVAP.smap
 ```
 

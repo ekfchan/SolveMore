@@ -1,15 +1,15 @@
 #! /usr/bin/env Rscript
 
-## filter_dualVAP.R
+## filterVAP.R
 ## Eva KF Chan
 ## https://github.com/ekfchan
-## Filters dual-sample VAP output using the following criteria: 
+## Filters VAP output using the following criteria: 
 ##	INS/DEL:	(Type == "insertion | Type == "deletion) &  Found_in_self_molecules != "no" & Size >= 500 
 ##	DUP:		Type ~ /dup/ & Found_in_self_molecules != "no" 
 ## 	INV bkpts:	(Type !~ /_nbase/ & Fail_assembly_chimeric_score != "fail" & Found_in_self_molecules != "no") & Partner == "PASS"
 ##	TRANS:		Type !~ /_common/ & Type !~ /_segdup/ & Fail_assembly_chimeric_score != "fail" & Found_in_self_molecules <> "no"
 
-## Script is compatible with SMAP File Version 0.7
+## Script is compatible with SMAP File Version 0.7 and has been tested for Single-Sample and Dual-Sample VAP outputs.
 ## Assumes: 
 ##	1) There is a column header signified by the line beginning with "#h"
 ##	2) The following column headers are present: Type, Found_in_self_molecules, Size, Fail_assembly_chimeric_score, LinkID, SmapEntryID 
@@ -17,11 +17,11 @@
 ## Arguments: 
 ## ==========
 ## Requires: 
-## 	input.smap: variants_combine_filters_vs_control_inMoleRefine1.smap from Dual-Sample VAP analysis (Bionano Solve v3.2)
+## 	input.smap: variants_combine_filters_vs_control_inMoleRefine1.smap from a VAP analysis (Bionano Solve v3.2)
 ##	output.smap:  Asubset of the input.smap 
 
 args <- commandArgs(TRUE)
-if( length( args )!=2 ) { stop("usage: ./filter_dualVAP.R input.smap output.smap\n", call. = FALSE) }
+if( length( args )!=2 ) { stop("usage: ./filterVAP.R input.smap output.smap\n", call. = FALSE) }
 
 infile = args[1]
 outfile = args[2]
