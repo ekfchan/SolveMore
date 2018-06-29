@@ -53,7 +53,7 @@ dat$PASS_insdel = ifelse((dat$Type=="deletion" | dat$Type=="insertion") & dat$Fo
 ## Duplications
 ##	Type ~ /dup/ & Found_in_self_molecules != "no" 
 dat$PASS_dup = FALSE
-dat$PASS_dup[intersect(grep("dup",dat$type), which(dat$Found_in_self_molecules!="no"))] = TRUE
+dat$PASS_dup[intersect(grep("dup",dat$Type), which(dat$Found_in_self_molecules!="no"))] = TRUE
 
 ## Translocations: 
 ##	Type !~ /_common/ & Type !~ /_segdup/ & Fail_assembly_chimeric_score != "fail" & Found_in_self_molecules <> "no"
