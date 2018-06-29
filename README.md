@@ -3,7 +3,7 @@ Handy scripts for examining Bionano Solve data
 
 _Scripts have been validated for Bionano Solve v3.2, BNX format v.1.2 and SMAP format v0.7_
 
-##**plotters**
+## **plotters**
 
 This dir contains scripts for generating plots and figures. 
 
@@ -39,7 +39,7 @@ A R script to plot genome-wide CNV profile, taken as the `fractionalCopyNumber` 
 
 _This script is here for historical reasons, as I don't think the plot is very informative...!_
 
-##**manipulators**
+## **manipulators**
 
 This dir contains scripts for post-analysis and manipulation of Pipeline outputs. 
 
