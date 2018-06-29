@@ -39,5 +39,17 @@ A R script to plot genome-wide CNV profile, taken as the `fractionalCopyNumber` 
 
 _This script is here for historical reasons, as I don't think the plot is very informative...!_
 
+**VAP**
 
+This dir contains scripts for post-analysis and manipulation of the Variant Annotation Pipeline output. 
+
+_The scripts are based on SMAP File Version 0.7_
+
+[**_filter_dualVAP_**](VAP/filter_dualVAP.R)
+
+A R script to filter the "raw" variants_combine_filters_vs_control_inMoleRefine1.smap file from a Dual-Sample VAP analysis, returing a reduced smap. In brief, SVs of types "_nbase", "_common", and "_segdup" are excluded, as are SVs failing Assembly Chimeric Score or not found in self-molecules, and insertions/deletions smaller than 500 bp in size. 
+
+```R
+Rscript filter_dualVAP.R variants_combine_filters_vs_control_inMoleRefine1.smap filteredVAP.smap
+```
 
