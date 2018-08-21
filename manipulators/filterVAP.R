@@ -5,9 +5,9 @@
 ## https://github.com/ekfchan
 ## Filters VAP output using the following criteria: 
 ##	INS/DEL:	(Type == "insertion | Type == "deletion) &  Found_in_self_molecules != "no" & Size >= 500 
-##	DUP:		Type ~ /dup/ & Found_in_self_molecules != "no" 
+##	DUP:		Type ~ /duplication/ & Found_in_self_molecules != "no" & Fail_assembly_chimeric_score != "fail"
 ## 	INV bkpts:	(Type !~ /_nbase/ & Fail_assembly_chimeric_score != "fail" & Found_in_self_molecules != "no") & Partner == "PASS"
-##	TRANS:		Type !~ /_common/ & Type !~ /_segdup/ & Fail_assembly_chimeric_score != "fail" & Found_in_self_molecules <> "no"
+##	TRANS:		Type !~ /_common/ & Type !~ /_segdupe/ & Fail_assembly_chimeric_score != "fail" & Found_in_self_molecules <> "no"
 
 ## Script is compatible with SMAP File Version 0.7 and has been tested for Single-Sample and Dual-Sample VAP outputs.
 ## Assumes: 
@@ -51,14 +51,14 @@ close(mycon)
 dat$PASS_insdel = ifelse((dat$Type=="deletion" | dat$Type=="insertion") & dat$Found_in_self_molecules!="no" & dat$Size>=500, TRUE, FALSE)
 
 ## Duplications
-##	Type ~ /dup/ & Found_in_self_molecules != "no" 
+##	Type ~ /duplication/ & Found_in_self_molecules != "no" 
 dat$PASS_dup = FALSE
-dat$PASS_dup[intersect(grep("dup",dat$Type), which(dat$Found_in_self_molecules!="no"))] = TRUE
+dat$PASS_dup[intersect(grep("duplication",dat$Type), which(dat$Found_in_self_molecules!="no" & dat$Fail_assembly_chimeric_score!="fail"))] = TRUE
 
 ## Translocations: 
-##	Type !~ /_common/ & Type !~ /_segdup/ & Fail_assembly_chimeric_score != "fail" & Found_in_self_molecules <> "no"
+##	Type !~ /_common/ & Type !~ /_segdupe/ & Fail_assembly_chimeric_score != "fail" & Found_in_self_molecules <> "no"
 dat$PASS_trans = FALSE
-dat$PASS_trans[intersect(setdiff(grep("trans",dat$Type),union(grep("common",dat$Type),grep("segdup",dat$Type))), which(dat$Fail_assembly_chimeric_score!="fail" & dat$Found_in_self_molecules!="no"))] = TRUE
+dat$PASS_trans[setdiff(intersect(grep("trans",dat$Type),which(dat$Fail_assembly_chimeric_score!="fail" & dat$Found_in_self_molecules!="no")),union(grep("common",dat$Type),grep("segdupe",dat$Type)))] = TRUE
 
 ## Inversions:
 ##	breakpoints: (Type !~ /_nbase/ & Fail_assembly_chimeric_score != "fail" & Found_in_self_molecules != "no") & Partner == "PASS"
